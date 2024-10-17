@@ -10,6 +10,14 @@
     </parent>
     <artifactId>advice-slip-api</artifactId>
     <description>This part is an integration to the advice slip API https://api.adviceslip.com/</description>
+    <dependencies>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>domain</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
     <packaging>jar</packaging>
 
     <properties/>
