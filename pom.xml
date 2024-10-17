@@ -97,6 +97,14 @@
 				<artifactId>swagger-annotations</artifactId>
 				<version>2.2.14</version>
 			</dependency>
+
+			<!-- Springdoc OpenAPI and Swagger UI dependency -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+				<version>2.5.0</version>
+			</dependency>
+
 			<!-- MapStruct Core Dependency -->
 			<dependency>
 				<groupId>org.mapstruct</groupId>

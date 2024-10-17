@@ -5,15 +5,16 @@ import dk.jnie.example.model.DomainResponse;
 import dk.jnie.example.model.RequestDto;
 import dk.jnie.example.model.ResponseDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface RestMapper {
 
-    //@Mapping(source = "answer", target = "advice")
+    @Mapping(source = "answer", target = "advice")
     ResponseDto domainToResponseDto(DomainResponse domainResponse);
 
 
-    //@Mapping(source="please", target = "question")
+    @Mapping(source="please", target = "question")
     DomainRequest requestDTOToDomain(RequestDto requestDto);
 }
 

@@ -9,7 +9,9 @@
         <relativePath>../../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <artifactId>advice-slip-api</artifactId>
+    <packaging>jar</packaging>
     <description>This part is an integration to the advice slip API https://api.adviceslip.com/</description>
+
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
@@ -18,7 +20,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-    <packaging>jar</packaging>
 
-    <properties/>
 </project>

@@ -12,42 +12,41 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/users")
-@Tag(name = "Main Management", description = "API for managing our operations")
+@RequestMapping(path = "/api/advice",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Main API", description = "Call for an advice, this could f.ex be a random advice")
 public class MainController {
 
     private final OurService ourService;
     private final RestMapper restMapper;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create a new user",
-            description = "Creates a new user with the provided information")
-    @ApiResponse(responseCode = "201", description = "User created successfully",
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Ask for an advice",
+            description = "Usage, use POST verb and the request model to ask for an advice")
+    @ApiResponse(responseCode = "200", description = "Success",
             content = @Content(schema = @Schema(implementation = RequestDto.class)))
     @ApiResponse(responseCode = "400", description = "Invalid input")
     public Mono<ResponseDto> getAdvice(
-            @Validated @RequestBody(required = true)
+            @Validated @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = RequestDto.class),
                             examples = @ExampleObject(
                                     value = """
-                        {
-                          "username": "johndoe",
-                          "email": "john.doe@example.com",
-                          "firstName": "John",
-                          "lastName": "Doe",
-                          "age": 30
-                        }
-                        """
+                                            {
+                                              "please": "anything"
+                                            }
+                                            """
                             )
                     )
             )

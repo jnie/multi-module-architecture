@@ -9,7 +9,9 @@
         <relativePath>../../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <artifactId>rest</artifactId>
+    <packaging>jar</packaging>
     <description>The rest part of this project will be the window for consumers of the RESTful API</description>
+
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
@@ -21,6 +23,12 @@
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
+        <!-- Springdoc OpenAPI and Swagger UI dependency -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+        </dependency>
+
         <!-- MapStruct Core Dependency -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -33,9 +41,6 @@
             <artifactId>mapstruct-processor</artifactId>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
-    <packaging>jar</packaging>
 
-    <properties/>
 </project>

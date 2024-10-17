@@ -6,6 +6,7 @@ This project is a multi module maven code sample that is inspired by clean archi
 # Usage
 
 # Build
+During build, [lombok][20] needs to be enabled to do preprocessing
 Build the project like any other maven build with `mvn clean package`
 
 
@@ -16,5 +17,5 @@ The services from the maven module for advice API is only available through a do
 is maintained in the integration module, only to be mapped into the domain model made available for all other maven modules through domain module.
 
 
-
+[20]: https://projectlombok.org/
 [50]:https://api.adviceslip.com/#top
