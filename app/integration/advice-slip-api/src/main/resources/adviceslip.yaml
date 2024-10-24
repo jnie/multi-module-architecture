@@ -1,0 +1,37 @@
+openapi: 3.0.0
+info:
+  title: Advice Slip API
+  description: API for retrieving random pieces of advice.
+  version: 1.0.0
+servers:
+  - url: https://api.adviceslip.com
+paths:
+  /advice:
+    get:
+      summary: Get a random piece of advice
+      description: Returns a random advice slip containing an ID and advice text.
+      responses:
+        '200':
+          description: A successful response returning advice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdviceResponse'
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    AdviceResponse:
+      type: object
+      properties:
+        slip:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: The unique ID of the advice slip
+              example: 125
+            advice:
+              type: string
+              description: The advice text
+              example: "Why wait until valentines day for a romantic gesture?"

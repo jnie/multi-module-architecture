@@ -1,14 +1,10 @@
 package dk.jnie.example.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class RequestDto {
+    @JsonProperty("please")
     String please;
 }
