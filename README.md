@@ -4,6 +4,8 @@ This project is a multi module maven code sample that is inspired by clean archi
 ![hexagonal_like_architecture.png](doc/hexagonal_like_architecture.png)
 
 # Usage
+Starting the application through an IDE like [IntelliJ][10] use spring profile `local`
+The application has a REST API contract which can be accessed through the address `http://localhost:8081/swagger-ui.html`
 
 # Build
 During build, [lombok][20] needs to be enabled to do preprocessing
@@ -16,6 +18,6 @@ The integration to the public [Advice API][50] is done through REST calls.
 The services from the maven module for advice API is only available through a domain interface and all object models from the external API
 is maintained in the integration module, only to be mapped into the domain model made available for all other maven modules through domain module.
 
-
+[10]: https://www.jetbrains.com/idea/
 [20]: https://projectlombok.org/
 [50]:https://api.adviceslip.com/#top
