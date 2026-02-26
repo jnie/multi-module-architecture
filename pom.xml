@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.5.11</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dk.jnie.example</groupId>
@@ -35,7 +35,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
-        <org.openapitools.version>7.8.0</org.openapitools.version>
+        <org.openapitools.version>7.20.0</org.openapitools.version>
     </properties>
     <dependencies>
         <dependency>
@@ -90,34 +90,34 @@
             <dependency>
                 <groupId>org.immutables</groupId>
                 <artifactId>value</artifactId>
-                <version>2.9.2</version>
+                <version>2.12.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>2.2.14</version>
+                <version>2.2.43</version>
             </dependency>
 
             <!-- Springdoc OpenAPI and Swagger UI dependency -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-                <version>2.5.0</version>
+                <version>2.8.15</version>
             </dependency>
 
             <!-- MapStruct Core Dependency -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
-                <version>1.5.5.Final</version>
+                <version>1.6.3</version>
             </dependency>
 
             <!-- MapStruct Processor Dependency (Required for Annotation Processing) -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
-                <version>1.5.5.Final</version>
+                <version>1.6.3</version>
                 <scope>provided</scope>
             </dependency>
 
