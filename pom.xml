@@ -15,11 +15,11 @@
     <description>Demo project for Spring Boot</description>
     <packaging>pom</packaging>
     <modules>
-        <module>/app/api/rest</module>
-        <module>/app/application</module>
-        <module>/app/domain</module>
-        <module>/app/integration/advice-slip-api</module>
-        <module>/app/service</module>
+        <module>app/inbound/rest</module>
+        <module>app/application</module>
+        <module>app/domain</module>
+        <module>app/outbound/advice-slip-api</module>
+        <module>app/service</module>
     </modules>
     <licenses>
         <license/>

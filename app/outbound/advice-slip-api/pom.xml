@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>advice-slip-api</artifactId>
+    <artifactId>outbound</artifactId>
     <packaging>jar</packaging>
     <description>This part is an integration to the advice slip API https://api.adviceslip.com/</description>
 

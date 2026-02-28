@@ -1,4 +1,4 @@
-package dk.jnie.example.mappers;
+package dk.jnie.example.inbound.mappers;
 
 import dk.jnie.example.model.DomainRequest;
 import dk.jnie.example.model.DomainResponse;

@@ -1,4 +1,4 @@
-package dk.jnie.example.integration.mappers;
+package dk.jnie.example.outbound.advice.mappers;
 
 import dk.jnie.example.advice.model.AdviceResponse;
 import dk.jnie.example.model.MultiAggregate;

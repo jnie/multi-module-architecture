@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>rest</artifactId>
+            <artifactId>inbound</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>advice-slip-api</artifactId>
+            <artifactId>outbound</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
