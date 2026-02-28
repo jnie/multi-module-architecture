@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.jnie.example.advice.model.AdviceResponse;
 import dk.jnie.example.outbound.advice.mappers.AdviceObjectMapper;
 import dk.jnie.example.model.MultiAggregate;
+import dk.jnie.example.integration.AdviceApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
