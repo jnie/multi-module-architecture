@@ -64,19 +64,11 @@ graph TB
 
 | Module | Description | Responsibility |
 | --------------- | ----------------------------- | ------------------------------------------------------------ |
-| app/inbound | REST controllers, DTOs | Receives external requests |
-| app/application | Used as Springboot initializer | Combines and initializes bean context |
-| app/domain | Domain models, interfaces | Core-Businesslogic (vendor-agnostic) |
-| app/service | Business logic implementation | Actual implementation of domain interfaces and Orchestration |
-| app/outbound | External adapters | Integration with external systems (API clients, persistence) |
-
-### Module Details
-
-- **app/inbound**: Contains REST controllers and Data Transfer Objects (DTOs). This layer handles incoming HTTP requests and responses.
-- **app/application**: Acts as the Spring Boot initializer. Combines and initializes the bean context for the entire application.
-- **app/domain**: Contains domain models and interfaces. This is the core business logic layer, completely vendor-agnostic.
-- **app/service**: Implements the domain interfaces and contains orchestration logic. This is where business rules are enforced.
-- **app/outbound**: Contains external adapters for integration with third-party systems, including API clients and persistence layer implementations.
+| app/inbound | Contains REST controllers, message consumers and Data Transfer Objects (DTOs). | This layer handles incoming requests and responses. |
+| app/application | Used as Springboot initializer | Combines and initializes the bean context for the entire application. |
+| app/domain | Domain models, interfaces | This is the core business logic layer, completely vendor-agnostic. |
+| app/service | Business logic implementation, Orchestration logic | Actual implementation of domain interfaces and Orchestration |
+| app/outbound | External adapters | Integration with external third-party systems (API clients, message brokers) |
 
 ## Technology Stack
 
@@ -143,30 +135,6 @@ Key implementation details:
 3. **Flexibility**: External integrations can be swapped without affecting core business logic.
 4. **Maintainability**: Changes to one module have minimal impact on others.
 5. **Reactive Support**: Built on Spring WebFlux for reactive, non-blocking operations.
-
-## Build Instructions
-
-### Prerequisites
-
-- Java 17 or higher
-- Maven 3.9 or higher
-
-### Building
-
-```bash
-# Clean and build
-mvn clean package
-
-# Skip tests
-mvn clean package -DskipTests
-
-# Build specific module
-mvn clean install -pl app/domain
-```
-
-### Lombok Configuration
-
-During build, Lombok must be enabled for preprocessing. This is configured in the Maven compiler plugin.
 
 ## License
 
