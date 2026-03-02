@@ -56,7 +56,7 @@ class RestMapperTest {
     @DisplayName("domainToResponseDto maps answer to advice")
     void domainToResponseDto_MapsAnswerToAdvice() {
         // Arrange
-        DomainResponse domainResponse = ImmutableDomainResponse.builder()
+        DomainResponse domainResponse = DomainResponse.builder()
                 .answer("Don't worry, be happy!")
                 .build();
 

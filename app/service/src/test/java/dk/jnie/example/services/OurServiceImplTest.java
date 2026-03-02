@@ -41,10 +41,10 @@ class OurServiceImplTest {
     void getAnAdvice_ReturnsAdviceSuccessfully() {
         // Arrange
         String expectedAdvice = "Don't be afraid to ask questions.";
-        DomainRequest request = ImmutableDomainRequest.builder()
+        DomainRequest request = DomainRequest.builder()
                 .question("anything")
                 .build();
-        MultiAggregate mockAggregate = ImmutableMultiAggregate.builder()
+        MultiAggregate mockAggregate = MultiAggregate.builder()
                 .answer(expectedAdvice)
                 .build();
 
@@ -67,10 +67,10 @@ class OurServiceImplTest {
     @DisplayName("getAnAdvice handles empty advice response")
     void getAnAdvice_HandlesEmptyAdviceResponse() {
         // Arrange
-        DomainRequest request = ImmutableDomainRequest.builder()
+        DomainRequest request = DomainRequest.builder()
                 .question("test")
                 .build();
-        MultiAggregate mockAggregate = ImmutableMultiAggregate.builder()
+        MultiAggregate mockAggregate = MultiAggregate.builder()
                 .answer("")
                 .build();
 
@@ -91,7 +91,7 @@ class OurServiceImplTest {
     @DisplayName("getAnAdvice propagates error from AdviceApi")
     void getAnAdvice_PropagatesErrorFromAdviceApi() {
         // Arrange
-        DomainRequest request = ImmutableDomainRequest.builder()
+        DomainRequest request = DomainRequest.builder()
                 .question("test")
                 .build();
         RuntimeException expectedError = new RuntimeException("External API failed");
@@ -113,10 +113,10 @@ class OurServiceImplTest {
     @DisplayName("getAnAdvice does not use domain request parameters")
     void getAnAdvice_DoesNotUseDomainRequestParameters() {
         // Arrange
-        DomainRequest request = ImmutableDomainRequest.builder()
+        DomainRequest request = DomainRequest.builder()
                 .question("this parameter is not used")
                 .build();
-        MultiAggregate mockAggregate = ImmutableMultiAggregate.builder()
+        MultiAggregate mockAggregate = MultiAggregate.builder()
                 .answer("API provides random advice")
                 .build();
 

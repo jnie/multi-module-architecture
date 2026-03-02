@@ -38,14 +38,12 @@ class AdviceApiImplTest {
     @Mock
     private WebClient.ResponseSpec responseSpec;
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private AdviceObjectMapper adviceObjectMapper;
     private AdviceApiImpl adviceApiImpl;
 
     @BeforeEach
     void setUp() {
-        objectMapper = new ObjectMapper();
-        adviceObjectMapper = new AdviceObjectMapperImpl();
         adviceApiImpl = new AdviceApiImpl(objectMapper, adviceObjectMapper, adviceWebClient);
     }
 
