@@ -1,4 +1,4 @@
-package dk.jnie.example.outbound.advice;
+package dk.jnie.example.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.jnie.example.advice.model.AdviceResponse;
