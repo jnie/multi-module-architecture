@@ -2,7 +2,7 @@ package dk.jnie.example.advice;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.jnie.example.advice.model.AdviceResponse;
-import dk.jnie.example.outbound.advice.mappers.AdviceObjectMapper;
+import dk.jnie.example.advice.mappers.AdviceObjectMapper;
 import dk.jnie.example.model.MultiAggregate;
 import dk.jnie.example.integration.AdviceApi;
 import lombok.RequiredArgsConstructor;
