@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>outbound</artifactId>
+    <artifactId>advice-slip-api</artifactId>
     <packaging>jar</packaging>
     <description>This part is an integration to the advice slip API https://api.adviceslip.com/</description>
 
@@ -38,6 +38,7 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+<<<<<<< feature/global-exception-handling-and-dependabot
         <!-- WebFlux for reactive web client -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -62,6 +63,8 @@
             <artifactId>spring-cloud-starter-wiremock</artifactId>
             <scope>test</scope>
         </dependency>
+=======
+>>>>>>> main
     </dependencies>
 
     <build>

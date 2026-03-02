@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>inbound</artifactId>
+    <artifactId>rest</artifactId>
     <packaging>jar</packaging>
     <description>The rest part of this project will be the window for consumers of the RESTful API</description>
 
