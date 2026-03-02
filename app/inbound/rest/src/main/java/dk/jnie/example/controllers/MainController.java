@@ -1,6 +1,6 @@
 package dk.jnie.example.inbound.controllers;
 
-import dk.jnie.example.inbound.mappers.RestMapper;
+import dk.jnie.example.mappers.RestMapper;
 import dk.jnie.example.model.RequestDto;
 import dk.jnie.example.model.ResponseDto;
 import dk.jnie.example.services.OurService;
