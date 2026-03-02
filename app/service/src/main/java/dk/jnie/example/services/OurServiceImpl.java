@@ -1,6 +1,6 @@
 package dk.jnie.example.services;
 
-import dk.jnie.example.integration.AdviceApi;
+import dk.jnie.example.outbound.AdviceApi;
 import dk.jnie.example.model.DomainRequest;
 import dk.jnie.example.model.DomainResponse;
 import lombok.RequiredArgsConstructor;
