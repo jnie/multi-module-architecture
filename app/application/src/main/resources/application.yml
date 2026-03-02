@@ -1,3 +1,8 @@
 spring:
   application:
     name: multi-module-architecture
+# application properties
+mma:
+  outbound:
+    advice-slip-api:
+      url: "https://api.adviceslip.com"

@@ -19,15 +19,13 @@ public class AdviceApiImpl implements AdviceApi {
 
     private final ObjectMapper objectMapper;
     private final AdviceObjectMapper mapper;
+    private final WebClient adviceWebClient;
 
     @Override
     public Mono<MultiAggregate> getRandomAdvice() {
         log.info("Calling the advice API");
 
-        WebClient webClient = WebClient.builder()
-                .baseUrl("https://api.adviceslip.com")
-                .build();
-        return webClient.get()
+        return adviceWebClient.get()
                 .uri("/advice")
                 .accept(MediaType.TEXT_HTML) // Expecting text/html but it contains JSON data
                 .retrieve()
