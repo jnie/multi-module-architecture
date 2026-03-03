@@ -6,6 +6,7 @@ import dk.jnie.example.model.DomainResponse;
 import dk.jnie.example.model.RequestDto;
 import dk.jnie.example.model.ResponseDto;
 import dk.jnie.example.services.OurService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,13 +41,13 @@ class MainControllerTest {
 
     private WebTestClient webTestClient;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         webTestClient = WebTestClient.bindToController(mainController).build();
     }
 
     @Test
-    @DisplayName("POST /api/advice returns successful response")
+    @DisplayName("POST /api/v1/advice returns successful response")
     void getAdvice_ReturnsSuccessfulResponse() {
         // Arrange
         RequestDto requestDto = new RequestDto();
@@ -66,22 +67,20 @@ class MainControllerTest {
 
         // Act & Assert
         webTestClient.post()
-                .uri("/api/advice")
+                .uri("/api/v1/advice")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{\"please\":\"anything\"}")
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody(ResponseDto.class)
-                .value(response -> {
-                    assertThat(response.getAdvice()).isEqualTo("Don't be afraid to ask questions.");
-                });
+                .value(response -> assertThat(response.getAdvice()).isEqualTo("Don't be afraid to ask questions."));
 
         verify(ourServiceMock).getAnAdvice(any());
     }
 
     @Test
-    @DisplayName("POST /api/advice handles empty request")
+    @DisplayName("POST /api/v1/advice handles empty request")
     void getAdvice_HandlesEmptyRequest() {
         // Arrange
         RequestDto requestDto = new RequestDto();
@@ -101,7 +100,7 @@ class MainControllerTest {
 
         // Act & Assert
         webTestClient.post()
-                .uri("/api/advice")
+                .uri("/api/v1/advice")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{}")
                 .exchange()
@@ -109,7 +108,7 @@ class MainControllerTest {
     }
 
     @Test
-    @DisplayName("POST /api/advice returns 500 on service error")
+    @DisplayName("POST /api/v1/advice returns 500 on service error")
     void getAdvice_Returns500OnServiceError() {
         // Arrange
         when(restMapperMock.requestDTOToDomain(any(RequestDto.class)))
@@ -118,7 +117,7 @@ class MainControllerTest {
 
         // Act & Assert
         webTestClient.post()
-                .uri("/api/advice")
+                .uri("/api/v1/advice")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{\"please\":\"test\"}")
                 .exchange()
