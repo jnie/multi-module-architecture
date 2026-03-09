@@ -1,0 +1,81 @@
+# Dependabot configuration for dependency updates
+# For more information see: https://docs.github.com/en/code-security/dependabot
+
+version: 2
+updates:
+
+  # Enable version updates for Maven dependencies
+  - package-ecosystem: "maven"
+    directory: "/"  # Check the root pom.xml
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    
+    # Labels for pull requests
+    labels:
+      - "dependencies"
+      - "dependabot"
+    
+    # Assignees for PRs
+    assignees:
+      - "jnie"
+    
+    # Reviewers for PRs
+    reviewers:
+      - "jnie"
+    
+    # Commit message settings
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    
+    # Group minor and patch updates
+    groups:
+      # Group all minor and patch updates for production dependencies
+      production-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "*-test"
+          - "*-tests"
+          - "*test*"
+        update-types:
+          - "minor"
+          - "patch"
+      
+      # Group all minor and patch updates for test dependencies  
+      test-dependencies:
+        patterns:
+          - "*test*"
+          - "*-test"
+          - "*-tests"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    
+    labels:
+      - "dependencies"
+      - "github-actions"
+    
+    assignees:
+      - "jnie"
+    
+    reviewers:
+      - "jnie"
+    
+    commit-message:
+      prefix: "ci"
+      include: "scope"

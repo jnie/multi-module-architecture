@@ -8,7 +8,7 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
-    <artifactId>inbound</artifactId>
+    <artifactId>rest</artifactId>
     <packaging>jar</packaging>
     <description>The rest part of this project will be the window for consumers of the RESTful API</description>
 
@@ -35,10 +35,16 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
 
-        <!-- MapStruct Processor Dependency (Required for Annotation Processing) -->
+        <!-- Test dependencies -->
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- Test dependencies -->
