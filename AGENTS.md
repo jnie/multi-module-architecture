@@ -37,18 +37,20 @@ multi-module-architecture/
 4. **Use Lombok and MapStruct** — Already configured in POMs
 5. **Run tests before committing** — Use `mvn test`
 6. **Port/adapter pattern** — External APIs go in `app/outbound/`, interfaces in `app/domain/`
+7. **Port/adapter pattern** — Inbound APIs go in `app/inbound/`, no Interfaces, external parties should rely on 
+     OpenAPI documentation, or negotiated message structures for async messaging
 
 ### ⚡ Quick Reference
 
-| Action | Command |
-|--------|---------|
-| Full build | `mvn clean package` |
-| Run app | `mvn spring-boot:run -pl app/application -Dspring-boot.run.profiles=local` |
-| Run tests | `mvn test` |
-| Build specific module | `mvn install -pl <module> -am` |
-| Check dependencies | `mvn dependency:tree` |
-| Default port | 8081 |
-| Swagger UI | http://localhost:8081/swagger-ui.html |
+| Action | Command                                                                    |
+|--------|----------------------------------------------------------------------------|
+| Full build | `mvn clean package`                                                    |
+| Run app | `mvn spring-boot:run -pl app/application -Dspring-boot.run.profiles=local`|
+| Run tests | `mvn test`                                                              |
+| Build specific module | `mvn install -pl <module> -am`                              |
+| Check dependencies | `mvn dependency:tree`                                          |
+| Default port | 8080, but local is 8081                                              |
+| Swagger UI | http://localhost:8081/swagger-ui.html                                  |
 
 ### 🔧 Common Issues & Solutions
 
