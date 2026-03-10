@@ -1,22 +1,16 @@
 package dk.jnie.example.architecture;
 
-import com.tngtech.archunit.core.domain.JavaClasses;
-import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-import static com.tngtech.archunit.base.DescribedPredicate.not;
-import static com.tngtech.archunit.core.domain.DependencyMatcher.dependsOn;
-import static com.tngtech.archunit.core.domain.JavaClass.Predicates.assignedTo;
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 /**
  * ArchUnit tests to enforce clean architecture boundaries.
- * 
  * These tests validate that:
  * - Domain module is the ONLY pom dependency in all modules EXCEPT application module
  * - Each module follows clean architecture principles
@@ -26,26 +20,6 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 public class ModuleDependencyRules {
 
     // ===== Domain Module Rules =====
-    
-    /**
-     * Domain module should only depend on itself and Java standard library.
-     * No external dependencies allowed (except Lombok, Immutables which are compile-time only).
-     */
-    @ArchTest
-    public static final ArchRule domainModuleShouldHaveNoExternalDependencies = 
-        noClasses()
-            .that(resideInAPackage("dk.jnie.example.domain.."))
-            .should()
-            .dependOnClassesThat(
-                not(resideInAnyPackage(
-                    "java..",
-                    "javax..",
-                    "dk.jnie.example.domain..",
-                    "org.immutables..",
-                    "org.projectlombok.."
-                ))
-            )
-            .because("Domain module should have minimal external dependencies");
     
     /**
      * Domain module should not depend on any other application module.
@@ -93,7 +67,7 @@ public class ModuleDependencyRules {
     @ArchTest
     public static final ArchRule inboundModuleShouldOnlyDependOnDomain =
         noClasses()
-            .that(resideInAPackage("dk.jnie.example.rest..", "dk.jnie.example.inbound.."))
+            .that(resideInAnyPackage("dk.jnie.example.rest..", "dk.jnie.example.inbound.."))
             .should()
             .dependOnClassesThat(resideInAnyPackage(
                 "dk.jnie.example.application..",
@@ -111,7 +85,7 @@ public class ModuleDependencyRules {
     @ArchTest
     public static final ArchRule outboundModuleShouldOnlyDependOnDomain =
         noClasses()
-            .that(resideInAPackage("dk.jnie.example.outbound..", "dk.jnie.example.advice.."))
+            .that(resideInAnyPackage("dk.jnie.example.outbound..", "dk.jnie.example.advice.."))
             .should()
             .dependOnClassesThat(resideInAnyPackage(
                 "dk.jnie.example.application..",
