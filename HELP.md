@@ -1,7 +1,4 @@
 # Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'dk.jnie.example.multi-module-architecture' is invalid and this project uses 'dk.jnie.example.multi_module_architecture' instead.
 
 # Getting Started
 
