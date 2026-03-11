@@ -1,9 +1,9 @@
-package dk.jnie.example.mappers;
+package dk.jnie.example.rest.mappers;
 
-import dk.jnie.example.model.DomainRequest;
-import dk.jnie.example.model.DomainResponse;
-import dk.jnie.example.model.RequestDto;
-import dk.jnie.example.model.ResponseDto;
+import dk.jnie.example.domain.model.DomainRequest;
+import dk.jnie.example.domain.model.DomainResponse;
+import dk.jnie.example.rest.model.RequestDto;
+import dk.jnie.example.rest.model.ResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

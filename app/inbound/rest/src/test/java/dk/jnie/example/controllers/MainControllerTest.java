@@ -1,11 +1,12 @@
 package dk.jnie.example.controllers;
 
-import dk.jnie.example.mappers.RestMapper;
-import dk.jnie.example.model.DomainRequest;
-import dk.jnie.example.model.DomainResponse;
-import dk.jnie.example.model.RequestDto;
-import dk.jnie.example.model.ResponseDto;
-import dk.jnie.example.services.OurService;
+import dk.jnie.example.rest.controllers.MainController;
+import dk.jnie.example.rest.mappers.RestMapper;
+import dk.jnie.example.domain.model.DomainRequest;
+import dk.jnie.example.domain.model.DomainResponse;
+import dk.jnie.example.rest.model.RequestDto;
+import dk.jnie.example.rest.model.ResponseDto;
+import dk.jnie.example.domain.services.OurService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

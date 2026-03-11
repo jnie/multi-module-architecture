@@ -1,4 +1,4 @@
-package dk.jnie.example.exception;
+package dk.jnie.example.rest.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

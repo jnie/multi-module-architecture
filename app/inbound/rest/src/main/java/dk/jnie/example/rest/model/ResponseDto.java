@@ -1,4 +1,4 @@
-package dk.jnie.example.model;
+package dk.jnie.example.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

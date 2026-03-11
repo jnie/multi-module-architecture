@@ -1,8 +1,9 @@
 package dk.jnie.example.services;
 
-import dk.jnie.example.outbound.AdviceApi;
-import dk.jnie.example.model.DomainRequest;
-import dk.jnie.example.model.DomainResponse;
+import dk.jnie.example.domain.outbound.AdviceApi;
+import dk.jnie.example.domain.services.OurService;
+import dk.jnie.example.domain.model.DomainRequest;
+import dk.jnie.example.domain.model.DomainResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

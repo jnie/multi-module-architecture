@@ -1,6 +1,6 @@
-package dk.jnie.example.outbound;
+package dk.jnie.example.domain.outbound;
 
-import dk.jnie.example.model.MultiAggregate;
+import dk.jnie.example.domain.model.MultiAggregate;
 import reactor.core.publisher.Mono;
 
 /**

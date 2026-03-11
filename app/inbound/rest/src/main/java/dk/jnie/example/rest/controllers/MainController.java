@@ -1,9 +1,9 @@
-package dk.jnie.example.controllers;
+package dk.jnie.example.rest.controllers;
 
-import dk.jnie.example.mappers.RestMapper;
-import dk.jnie.example.model.RequestDto;
-import dk.jnie.example.model.ResponseDto;
-import dk.jnie.example.services.OurService;
+import dk.jnie.example.rest.mappers.RestMapper;
+import dk.jnie.example.rest.model.RequestDto;
+import dk.jnie.example.rest.model.ResponseDto;
+import dk.jnie.example.domain.services.OurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
