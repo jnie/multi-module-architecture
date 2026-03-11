@@ -54,9 +54,7 @@ class OurServiceImplTest {
 
         // Assert
         StepVerifier.create(result)
-                .assertNext(response -> {
-                    assertThat(response.getAnswer()).isEqualTo(expectedAdvice);
-                })
+                .assertNext(response -> assertThat(response.getAnswer()).isEqualTo(expectedAdvice))
                 .verifyComplete();
 
         verify(adviceAPI).getRandomAdvice();
@@ -80,9 +78,7 @@ class OurServiceImplTest {
 
         // Assert
         StepVerifier.create(result)
-                .assertNext(response -> {
-                    assertThat(response.getAnswer()).isEmpty();
-                })
+                .assertNext(response -> assertThat(response.getAnswer()).isEmpty())
                 .verifyComplete();
     }
 
