@@ -1,35 +1,36 @@
 # AGENTS.md guide
 
-This is a Spring Boot multi-module Maven project demonstrating Clean Architecture and Hexagonal Architecture patterns.
+## 1. Repository Overview
+- The multi-module-architecture is a multi-module Maven project demonstrating Clean Architecture and Hexagonal Architecture patterns.
+- This is to showcase how separation of concerns is kept strict in separate modules, to give a low cognitive experience for humans.
+- Low cognitive load is mostly relevant in integrated development environment(IDE). 
 
-# Repository Guidelines
+**Technology Stack**
+- Java 17+
+- Spring Boot 3.5.11
+- Maven 3.9+
+- H2 (in-memory database)
+- Spring WebFlux (reactive)
 
-- Repo: https://github.com/jnie/multi-module-architecture
-- In chat replies, file references must be repo-root relative only (example: `app/inbound/rest/src/main/java/dk/jnie/example/controllers/MainController.java`); never absolute paths or `~/...`.
-- GitHub issues/comments/PR comments: use literal multiline strings or `-F - <<'EOF'` (or $'...') for real newlines; never embed "\\n".
-- GitHub comment footgun: never use `gh issue/pr comment -b "..."` when body contains backticks or shell chars. Always use single-quoted heredoc (`-F - <<'EOF'`) so no command substitution/escaping corruption.
-- GitHub linking footgun: don’t wrap issue/PR refs like `#24643` in backticks when you want auto-linking. Use plain `#24643` (optionally add full URL).
-- PR landing comments: always make commit SHAs clickable with full commit links (both landed SHA + source SHA when present).
-- PR review conversations: if a bot leaves review conversations on your PR, address them and resolve those conversations yourself once fixed. Leave a conversation unresolved only when reviewer or maintainer judgment is still needed; do not leave bot-conversation cleanup to maintainers.
-- GitHub searching footgun: don't limit yourself to the first 50 issues or PRs when wanting to search all. Unless you're supposed to look at the most recent, keep going until you've reached the last page in the search
-- Security advisory analysis: before triage/severity decisions, read `SECURITY.md` to align with agreed trust model and design boundaries.
+---
 
-## Project Structure & Module Organization
+## 2. Project Structure, Code style & patterns 
 
 ```
 multi-module-architecture/
 ├── app/
-│   ├── inbound/      # REST controllers, DTOs
-│   ├── application/ # Spring Boot initializer
-│   ├── domain/       # Domain models & interfaces
-│   ├── service/      # Business logic
-│   └── outbound/     # External adapters (API clients)
-├── doc/              # Documentation & diagrams
-├── .github/          # GitHub workflows
-└── pom.xml           # Parent POM
+│   ├── inbound/api      # REST controllers, DTOs
+│   ├── application/     # Spring Boot initializer
+│   ├── domain/          # Domain models & interfaces
+│   ├── repository/      # Database and infrastructure
+│   ├── service/         # Business logic
+│   └── outbound/ext.api # External adapters (API clients)
+├── doc/                 # Documentation & diagrams
+├── .github/             # GitHub workflows
+└── pom.xml              # Parent POM
 ```
 
-## When working on this project:
+### General principles
 
 1. **Always check existing modules first** — Understand the architecture before making changes
 2. **Keep the module boundaries clean** — Don't mix concerns across modules
@@ -40,6 +41,43 @@ multi-module-architecture/
 7. **Port/adapter pattern** — Inbound APIs go in `app/inbound/`, no Interfaces, external parties should rely on 
      OpenAPI documentation, or negotiated message structures for async messaging
 
+### Type safety & Code quality
+
+- Language: Java 17+; use strict typing; avoid raw types and unchecked casts.
+- Formatting: `./mvnw format` (or project formatter); run before commits.
+- Verification: `./mvnw verify` runs all checks; fix violations, don't suppress.
+- Never use `@SuppressWarnings` without justification; fix root causes instead.
+- Never use reflection or runtime bytecode manipulation to share class behavior; use inheritance/composition.
+- If reflection is needed, stop and get explicit approval; prefer interfaces and DI.
+- In tests, use Mockito `@Mock` per-instance stubs; avoid static state mutation.
+- Add brief comments for tricky logic (explain WHY, not WHAT).
+- Keep files under ~500 LOC; extract helpers instead of "V2" copies.
+- MapStruct: use interfaces with `componentModel = "spring"`; don't manually implement mappers.
+- Lombok: avoid `@Data` on JPA entities; prefer `@Value`, `@Builder`, `@RequiredArgsConstructor`.
+- Reactive: avoid `.block()` in WebFlux code paths; embrace reactive patterns.
+- Naming: follow Spring Boot conventions (`@Service`, `@Repository`, `@RestController`).
+
+### Formatting
+- Use the generic Google Java Style formatting
+- Use 2 spaces for indentation.
+- Always include curly braces, even for single-line `if` statements.
+
+---
+
+## 3. Agentic workflow (The "How-To")
+When you are tasked with a feature or bug fix, follow this exact sequence:
+
+### Phase 1: Exploration & Plan
+1. **Search:** Locate relevant logic using `grep` or symbol search.
+2. **Propose:** Briefly summarize your plan in the chat before writing code.
+
+### Phase 2: Implementation & Testing
+1. **Execute:** Modify files. Do not delete comments unless they are obsolete.
+2. **Local Validation:** - Build command: `cmake --build build`
+  - Test command: `ctest --test-dir build`
+3. **Self-Correction:** If tests fail, analyze the logs, fix the code, and re-run tests until green. **Do not ask for help until you have attempted 2 logical fixes.**
+
+---
 ### ⚡ Quick Reference
 
 | Action | Command                                                                    |
@@ -75,24 +113,6 @@ lsof -ti:8081 | xargs kill -9
 mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
 ```
 
-## Coding Style & Naming Conventions
-
-### Type Safety & Code Quality
-
-- Language: Java 17+; use strict typing; avoid raw types and unchecked casts.
-- Formatting: `./mvnw format` (or project formatter); run before commits.
-- Verification: `./mvnw verify` runs all checks; fix violations, don't suppress.
-- Never use `@SuppressWarnings` without justification; fix root causes instead.
-- Never use reflection or runtime bytecode manipulation to share class behavior; use inheritance/composition.
-- If reflection is needed, stop and get explicit approval; prefer interfaces and DI.
-- In tests, use Mockito `@Mock` per-instance stubs; avoid static state mutation.
-- Add brief comments for tricky logic (explain WHY, not WHAT).
-- Keep files under ~500 LOC; extract helpers instead of "V2" copies.
-- MapStruct: use interfaces with `componentModel = "spring"`; don't manually implement mappers.
-- Lombok: avoid `@Data` on JPA entities; prefer `@Value`, `@Builder`, `@RequiredArgsConstructor`.
-- Reactive: avoid `.block()` in WebFlux code paths; embrace reactive patterns.
-- Naming: follow Spring Boot conventions (`@Service`, `@Repository`, `@RestController`).
-
 
 ## Testing Guidelines
 
@@ -126,13 +146,22 @@ mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
 
 ---
 
-## Technology Stack
+## 4. Pull Request (PR) requirements
 
-- Java 17+
-- Spring Boot 3.5.11
-- Maven 3.9+
-- H2 (in-memory database)
-- Spring WebFlux (reactive)
+### Communication within the repo
+- **Repo:** https://github.com/jnie/multi-module-architecture
+- **In chat replies** file references must be repo-root relative only (example: `app/inbound/rest/src/main/java/dk/jnie/example/controllers/MainController.java`); never absolute paths or `~/...`.
+- **GitHub PR Summary:** What was changed and why.
+- **Breaking Changes:** Explicitly state if any APIs or asset formats were modified. 
+- **GitHub issues/comments/PR comments** use literal multiline strings never embed "\\n".
+- **GitHub comments** never use `gh issue/pr comment -b "..."` when body contains backticks or shell chars.
+- **GitHub linking** don’t wrap issue/PR refs like `#24643` in backticks when you want auto-linking. Use plain `#24643` (optionally add full URL).
+- **PR landing comments** always make commit SHAs clickable with full commit links (both landed SHA + source SHA when present).
+- **PR review conversations** if a bot leaves review conversations on your PR, address them and resolve those conversations yourself once fixed. Leave a conversation unresolved only when reviewer or maintainer judgment is still needed; do not leave bot-conversation cleanup to maintainers.
+- **Security advisory analysis** before triage/severity decisions, read `SECURITY.md` to align with agreed trust model and design boundaries.
+- **Risk Assessment:** Label as [Low/Medium/High] risk.
+
+---
 
 ## Changelog Release Notes
 
@@ -147,8 +176,9 @@ mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
   - `### Fixes` deduped and ranked with user-facing fixes first.
 
 
-## Notes
 
-- The project uses **reactive programming** (Reactor)
-- External API: Advice Slip API (https://api.adviceslip.com/)
-- Default port: 8081
+## 5. Constraints & Boundaries
+- **Dependencies:** Do not add new external libraries without explicit user approval.
+- **Secrets:** Never commit `.env` files or API keys.
+- The project uses **reactive programming** (Reactor) style, keep that
+- **NO-GO zone** External Advice Slip API (https://api.adviceslip.com/) is off limits, auto generation of classes are part of build
