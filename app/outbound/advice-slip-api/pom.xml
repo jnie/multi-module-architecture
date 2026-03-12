@@ -67,7 +67,7 @@
                             <generateApiDocumentation>false</generateApiDocumentation>
                             <configOptions>
                                 <sourceFolder>src/gen/java/main</sourceFolder>
-                                <dateLibrary>java8</dateLibrary>
+                                <dateLibrary>jackson3</dateLibrary>
                                 <useJakartaEe>true</useJakartaEe>
                                 <openApiNullable>false</openApiNullable>
                                 <reactive>true</reactive>
