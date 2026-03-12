@@ -19,6 +19,7 @@
         <module>app/application</module>
         <module>app/domain</module>
         <module>app/outbound/advice-slip-api</module>
+        <module>app/repository</module>
         <module>app/service</module>
         <module>app/architecture-tests</module>
     </modules>
