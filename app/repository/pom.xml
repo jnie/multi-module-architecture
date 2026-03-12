@@ -6,38 +6,41 @@
         <groupId>dk.jnie.example</groupId>
         <artifactId>multi-module-architecture</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath> <!-- lookup parent from repository -->
+        <relativePath>../../pom.xml</relativePath>
     </parent>
-    <artifactId>application</artifactId>
-    <description>The application part of this project, collect all dependencies for a jar</description>
+    <artifactId>repository</artifactId>
     <packaging>jar</packaging>
+    <description>Repository layer with H2 caching for outbound API responses</description>
 
-    <properties/>
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>domain</artifactId>
             <version>${project.parent.version}</version>
+            <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>rest</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>service</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-h2</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>advice-slip-api</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
+
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
-            <artifactId>repository</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
+
     </dependencies>
+
 </project>

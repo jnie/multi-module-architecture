@@ -1,7 +1,7 @@
 package dk.jnie.example.advice.mappers;
 
 import dk.jnie.example.advice.model.AdviceResponse;
-import dk.jnie.example.model.MultiAggregate;
+import dk.jnie.example.domain.model.MultiAggregate;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import reactor.core.publisher.Mono;

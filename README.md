@@ -5,7 +5,11 @@
 [![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.java.com/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.11-brightgreen)](https://spring.io/projects/spring-boot)
 
-A multi-module Maven project inspired by Clean Architecture and Hexagonal Architecture patterns. This project demonstrates a practical implementation of domain-driven design with clear separation of concerns.
+
+## Architecture Overview
+
+This project follows a modular architecture that separates concerns across distinct layers inspired by Clean Architecture and Hexagonal Architecture patterns. 
+This demonstrates a practical implementation of domain-driven design with clear separation of concerns.
 
 ![Architecture Overview](doc/hexagonal_like_architecture.png)
 
@@ -17,47 +21,10 @@ git clone https://github.com/jnie/multi-module-architecture.git
 cd multi-module-architecture
 
 # Build the project
-mvn clean package
+mvn clean install
 
 # Run the application
 mvn spring-boot:run -pl app/application
-```
-
-## Architecture Overview
-
-This project follows a modular architecture that separates concerns across distinct layers:
-
-```mermaid
-graph TB
-    subgraph External
-        Client[Client Applications]
-    end
-    
-    subgraph "app/inbound"
-        REST[REST Controllers / DTOs]
-    end
-    
-    subgraph "app/application"
-        Bootstrap[Spring Boot Initializer]
-    end
-    
-    subgraph "app/domain"
-        Models[Domain Models & Interfaces]
-    end
-    
-    subgraph "app/service"
-        Business[Business Logic & Orchestration]
-    end
-    
-    subgraph "app/outbound"
-        Adapters[External Adapters & Clients]
-    end
-    
-    Client --> REST
-    REST --> Bootstrap
-    Bootstrap --> Models
-    Business --> Models
-    Models --> Adapters
 ```
 
 ## Module Structure

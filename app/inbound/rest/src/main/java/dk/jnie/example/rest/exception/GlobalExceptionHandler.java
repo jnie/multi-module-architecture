@@ -1,4 +1,4 @@
-package dk.jnie.example.exception;
+package dk.jnie.example.rest.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.support.WebExchangeBindException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
@@ -31,6 +32,16 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error));
+    }
+
+    @ExceptionHandler(WebClientResponseException.class)
+    public Mono<ResponseEntity<ErrorResponse>> handleWebClientException(WebClientResponseException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getStatusCode().value(),
+                "External API Error",
+                ex.getResponseBodyAsString()
+        );
+        return Mono.just(ResponseEntity.status(ex.getStatusCode()).body(error));
     }
 
     /**

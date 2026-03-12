@@ -1,6 +1,6 @@
-package dk.jnie.example.model;
+package dk.jnie.example.domain.model;
 
-import dk.jnie.example.util.ObjectStyle;
+import dk.jnie.example.domain.util.ObjectStyle;
 import org.immutables.value.Value;
 
 @ObjectStyle

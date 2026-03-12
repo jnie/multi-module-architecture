@@ -1,9 +1,9 @@
 package dk.jnie.example.services;
 
-import dk.jnie.example.model.DomainRequest;
-import dk.jnie.example.model.DomainResponse;
-import dk.jnie.example.model.MultiAggregate;
-import dk.jnie.example.outbound.AdviceApi;
+import dk.jnie.example.domain.model.DomainRequest;
+import dk.jnie.example.domain.model.DomainResponse;
+import dk.jnie.example.domain.model.MultiAggregate;
+import dk.jnie.example.domain.outbound.AdviceApi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,6 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -55,9 +54,7 @@ class OurServiceImplTest {
 
         // Assert
         StepVerifier.create(result)
-                .assertNext(response -> {
-                    assertThat(response.getAnswer()).isEqualTo(expectedAdvice);
-                })
+                .assertNext(response -> assertThat(response.getAnswer()).isEqualTo(expectedAdvice))
                 .verifyComplete();
 
         verify(adviceAPI).getRandomAdvice();
@@ -81,9 +78,7 @@ class OurServiceImplTest {
 
         // Assert
         StepVerifier.create(result)
-                .assertNext(response -> {
-                    assertThat(response.getAnswer()).isEmpty();
-                })
+                .assertNext(response -> assertThat(response.getAnswer()).isEmpty())
                 .verifyComplete();
     }
 

@@ -1,4 +1,4 @@
-package dk.jnie.example.util;
+package dk.jnie.example.domain.util;
 
 import org.immutables.value.Value;
 
