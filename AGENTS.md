@@ -26,19 +26,21 @@ multi-module-architecture/
 │   ├── service/         # Business logic
 │   └── outbound/ext.api # External adapters (API clients)
 ├── doc/                 # Documentation & diagrams
+├── AGENTS.md            # Agents guidelines
 ├── .github/             # GitHub workflows
 └── pom.xml              # Parent POM
 ```
 
 ### General principles
 
-1. **Always check existing modules first** — Understand the architecture before making changes
-2. **Keep the module boundaries clean** — Don't mix concerns across modules
-3. **Domain layer should be vendor-agnostic** — No Spring annotations in domain/
-4. **Use Lombok and MapStruct** — Already configured in POMs
-5. **Run tests before committing** — Use `mvn test`
-6. **Port/adapter pattern** — External APIs go in `app/outbound/`, interfaces in `app/domain/`
-7. **Port/adapter pattern** — Inbound APIs go in `app/inbound/`, no Interfaces, external parties should rely on 
+1. **Always check existing modules first** - Understand the architecture before making changes
+2. **Keep the module boundaries clean** - Don't mix concerns across modules
+3. **Domain layer should be vendor-agnostic** - No Spring annotations in domain/
+4. **Use Lombok and MapStruct** - Already configured in POMs
+5. **main branch** - is off limits, when changing code always create a branch
+6. **Run tests before committing** - Use `mvn test`
+7. **Port/adapter pattern** - External APIs go in `app/outbound/`, interfaces in `app/domain/`
+8. **Port/adapter pattern** - Inbound APIs go in `app/inbound/`, no Interfaces, external parties should rely on 
      OpenAPI documentation, or negotiated message structures for async messaging
 
 ### Type safety & Code quality
@@ -72,10 +74,11 @@ When you are tasked with a feature or bug fix, follow this exact sequence:
 2. **Propose:** Briefly summarize your plan in the chat before writing code.
 
 ### Phase 2: Implementation & Testing
-1. **Execute:** Modify files. Do not delete comments unless they are obsolete.
-2. **Local Validation:** - Build command: `cmake --build build`
-  - Test command: `ctest --test-dir build`
-3. **Self-Correction:** If tests fail, analyze the logs, fix the code, and re-run tests until green. **Do not ask for help until you have attempted 2 logical fixes.**
+1. **Branch from a clean main** Make sure you have all the latest from main branch, create new branch from here
+2. **Execute:** Modify files. Do not delete comments unless they are obsolete.
+3. **Local Validation:** - Build command: `mvn clean compile`
+  - Test command: `mvn test`
+4. **Self-Correction:** If tests fail, analyze the logs, fix the code, and re-run tests until green. **Do not ask for help until you have attempted 2 logical fixes.**
 
 ---
 ### ⚡ Quick Reference
