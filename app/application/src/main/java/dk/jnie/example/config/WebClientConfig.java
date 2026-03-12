@@ -24,9 +24,8 @@ public class WebClientConfig {
     }
 
     @Bean
-    public WebClient adviceWebClient(WebClient.Builder builder,
-                                     @Value("${mma.outbound.advice-slip-api.url}") String url) {
-        return builder
+    public WebClient adviceWebClient(@Value("${mma.outbound.advice-slip-api.url}") String url) {
+        return WebClient.builder()
                 .baseUrl(url)
                 .clientConnector(new ReactorClientHttpConnector(
                         HttpClient.create().responseTimeout(Duration.ofSeconds(15))
