@@ -1,16 +1,16 @@
 package dk.jnie.example.repository;
 
 import dk.jnie.example.domain.repository.CacheRepository;
-import io.r2dbc.h2.H2ConnectionFactory;
-import io.r2dbc.h2.H2ConnectionConfiguration;
-import io.r2dbc.spi.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.core.DefaultReactiveDataAccessStrategy;
 import org.springframework.data.r2dbc.dialect.H2Dialect;
 import org.springframework.r2dbc.core.DatabaseClient;
 import reactor.core.publisher.Mono;
+import io.r2dbc.spi.ConnectionFactory;
 
 import java.time.Instant;
 
@@ -93,17 +93,9 @@ public class CacheRepositoryImpl implements CacheRepository {
     }
 
     @Configuration
+    @ConditionalOnClass(ConnectionFactory.class)
+    @ConditionalOnProperty(name = "mma.cache.enabled", havingValue = "true", matchIfMissing = true)
     public static class CacheRepositoryConfig {
-
-        @Bean
-        public ConnectionFactory connectionFactory() {
-            H2ConnectionConfiguration config = H2ConnectionConfiguration.builder()
-                    .url("mem:mma-cache;DB_CLOSE_DELAY=-1")
-                    .username("sa")
-                    .password("")
-                    .build();
-            return new H2ConnectionFactory(config);
-        }
 
         @Bean
         public DatabaseClient databaseClient(ConnectionFactory connectionFactory) {

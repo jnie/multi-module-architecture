@@ -1,10 +1,6 @@
 spring:
   application:
     name: multi-module-architecture
-  r2dbc:
-    url: r2dbc:h2:mem://./mma-cache;DB_CLOSE_DELAY=-1
-    username: sa
-    password:
   sql:
     init:
       mode: always
@@ -14,4 +10,4 @@ mma:
     advice-slip-api:
       url: "https://api.adviceslip.com"
   cache:
-    enabled: true
+    enabled: false

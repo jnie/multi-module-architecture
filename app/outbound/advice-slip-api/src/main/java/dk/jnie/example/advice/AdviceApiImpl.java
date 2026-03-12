@@ -6,16 +6,17 @@ import dk.jnie.example.advice.model.AdviceResponse;
 import dk.jnie.example.domain.model.MultiAggregate;
 import dk.jnie.example.domain.outbound.AdviceApi;
 import dk.jnie.example.domain.repository.CacheRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
+
 @Slf4j
-@RequiredArgsConstructor
 @Service
 public class AdviceApiImpl implements AdviceApi {
 
@@ -24,28 +25,39 @@ public class AdviceApiImpl implements AdviceApi {
     private final ObjectMapper objectMapper;
     private final AdviceObjectMapper mapper;
     private final WebClient adviceWebClient;
-    private final CacheRepository cacheRepository;
+    private final Optional<CacheRepository> cacheRepository;
+    private final boolean cacheEnabled;
 
-    @Value("${mma.cache.enabled:true}")
-    private boolean cacheEnabled;
+    @Autowired
+    public AdviceApiImpl(ObjectMapper objectMapper,
+                         AdviceObjectMapper mapper,
+                         WebClient adviceWebClient,
+                         @Autowired(required = false) CacheRepository cacheRepository,
+                         @Value("${mma.cache.enabled:true}") boolean cacheEnabled) {
+        this.objectMapper = objectMapper;
+        this.mapper = mapper;
+        this.adviceWebClient = adviceWebClient;
+        this.cacheRepository = Optional.ofNullable(cacheRepository);
+        this.cacheEnabled = cacheEnabled;
+    }
 
     @Override
     public Mono<MultiAggregate> getRandomAdvice() {
-        if (cacheEnabled) {
+        if (cacheEnabled && cacheRepository.isPresent()) {
             return getFromCache().switchIfEmpty(fetchAndCache());
         }
         return fetchFromApi();
     }
 
     private Mono<MultiAggregate> getFromCache() {
-        return cacheRepository.get(CACHE_KEY)
+        return cacheRepository.get().get(CACHE_KEY)
                 .flatMap(this::deserializeFromCache)
                 .doOnNext(aggregate -> log.info("Retrieved advice from cache"));
     }
 
     private Mono<MultiAggregate> fetchAndCache() {
         return fetchFromApi()
-                .flatMap(aggregate -> cacheRepository.put(CACHE_KEY, serializeForCache(aggregate))
+                .flatMap(aggregate -> cacheRepository.get().put(CACHE_KEY, serializeForCache(aggregate))
                         .thenReturn(aggregate));
     }
 
