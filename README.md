@@ -27,16 +27,6 @@ mvn clean install
 mvn spring-boot:run -pl app/application
 ```
 
-## Module Structure
-
-| Module | Description | Responsibility |
-| --------------- | ----------------------------- | ------------------------------------------------------------ |
-| app/inbound | Contains REST controllers, message consumers and Data Transfer Objects (DTOs). | This layer handles incoming requests and responses. |
-| app/application | Used as Springboot initializer | Combines and initializes the bean context for the entire application. |
-| app/domain | Domain models, interfaces | This is the core business logic layer, completely vendor-agnostic. |
-| app/service | Business logic implementation, Orchestration logic | Actual implementation of domain interfaces and Orchestration |
-| app/outbound | External adapters | Integration with external third-party systems (API clients, message brokers) |
-
 ## Technology Stack
 
 | Technology | Version | Purpose |
@@ -49,6 +39,50 @@ mvn spring-boot:run -pl app/application
 | Springdoc OpenAPI | 2.8.15 | API documentation |
 | H2 Database | Latest | In-memory database |
 | Reactor | Latest | Reactive programming |
+
+## 🎯 Purpose
+
+- Demonstrate that multi-module architecture is **framework-agnostic**
+- Showcase Micronaut's advantages: **faster startup**, **lower memory usage**
+- Provide a **reference implementation** for Spring Boot → Micronaut migrations
+
+## 📦 Architecture
+
+The project follows a **Clean Architecture** approach with clear separation of concerns:
+
+```
+app/
+├── inbound/rest/          # REST controllers, DTOs, mappers
+├── application/           # Main class, configuration, beans
+├── domain/                # Domain models, interfaces (business logic contracts)
+├── service/               # Business logic implementation and Orchestration layer
+└── outbound/              # External adapters (HTTP clients, repositories)
+    └── advice-slip-api/   # Integration with Advice Slip API
+```
+
+### Module Responsibilities
+
+| Module | Description                                                                     |
+|--------|---------------------------------------------------------------------------------|
+| **inbound/rest** | REST controllers, DTOs, exception handling                                      |
+| **application** | Entry point (Application.main), configuration, dependency wiring                |
+| **domain** | Business models, interfaces (contracts) for services, no framework dependencies |
+| **service** | Orchestration and business logic, implements domain services                    |
+| **outbound/advice-slip-api** | External API integration (HTTP client)                                          |
+
+## Constraints for module dependencies
+- inbound/rest cannot depend on any other module than Domain
+- application depends on all modules to wire the full application
+- domain cannot depend on any other module
+- service cannot depend on any other module than Domain
+- outboudn/*api* cannot depend on any other module than Domain
+
+## Object mapping for modules
+- domain module is responsible for the domain objects and aggregates
+- outbound/*api* is responsible for mapping from domain model to external contract (API) and back to internal domain model
+- inbound/*api* is responsible for the mapping from API consumers(external parties of application services) to the domain model and back
+- repository is responsible for mapping from domain models to repositories as databases and back to domain models when returning
+- service layer should ONLY handle domain model objects, never do any mapping from or to other external models
 
 ## Usage
 
