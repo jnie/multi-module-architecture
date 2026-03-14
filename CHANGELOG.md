@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changes
 
+- **Dependency management**: Consolidated ArchUnit version to parent POM
+  - Added `<archunit.version>1.3.0</archunit.version>` property in parent `pom.xml`
+  - Added `archunit-junit5` to `<dependencyManagement>` section
+  - Removed explicit version from `app/architecture-tests/pom.xml`
+  - Ensures all dependency versions are centrally managed
+
 - **Java upgrade**: Upgraded from Java 17 to Java 21
   - Updated `pom.xml` java.version property
   - Updated GitHub Actions workflow to use JDK 21
