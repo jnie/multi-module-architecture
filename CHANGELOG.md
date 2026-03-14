@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changes
 
+- **Java upgrade**: Upgraded from Java 17 to Java 21
+  - Updated `pom.xml` java.version property
+  - Updated GitHub Actions workflow to use JDK 21
+  - Updated documentation references in README.md, AGENTS.md, SECURITY.md
+
 - **AGENTS.md**: Corrected module structure to match actual project layout
   - Updated from incorrect `inbound/api`, `outbound/ext.api` to actual `inbound/rest`, `inbound/consumer`, `outbound/advice-slip-api`, `outbound/publisher`
   - Added missing `architecture-tests` module to documentation

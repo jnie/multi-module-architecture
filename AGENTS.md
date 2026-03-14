@@ -6,7 +6,7 @@
 - Low cognitive load is mostly relevant in integrated development environment(IDE). 
 
 **Technology Stack**
-- Java 17+
+- Java 21+
 - Spring Boot 3.5.11
 - Maven 3.9+
 - H2 (in-memory database)
@@ -51,7 +51,7 @@ multi-module-architecture/
 
 ### Type safety & Code quality
 
-- Language: Java 17+; use strict typing; avoid raw types and unchecked casts.
+- Language: Java 21+; use strict typing; avoid raw types and unchecked casts.
 - Formatting: `./mvnw format` (or project formatter); run before commits.
 - Verification: `./mvnw verify` runs all checks; fix violations, don't suppress.
 - Never use `@SuppressWarnings` without justification; fix root causes instead.

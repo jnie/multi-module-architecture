@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/jnie/multi-module-architecture)
 [![Maven Central](https://img.shields.io/badge/Maven-3.9+-blue)](https://maven.apache.org/)
-[![Java](https://img.shields.io/badge/Java-17+-blue)](https://www.java.com/)
+[![Java](https://img.shields.io/badge/Java-21+-blue)](https://www.java.com/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.11-brightgreen)](https://spring.io/projects/spring-boot)
 
 
@@ -31,7 +31,7 @@ cd multi-module-architecture
 
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| Java | 17+ | Programming language |
+| Java | 21+ | Programming language |
 | Spring Boot | 3.5.11 | Application framework |
 | Maven | 3.9+ | Build tool |
 | Lombok | Latest | Code generation |
