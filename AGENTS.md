@@ -19,16 +19,22 @@
 ```
 multi-module-architecture/
 ├── app/
-│   ├── inbound/api      # REST controllers, DTOs
-│   ├── application/     # Spring Boot initializer
-│   ├── domain/          # Domain models & interfaces
-│   ├── repository/      # Database and infrastructure
-│   ├── service/         # Business logic
-│   └── outbound/ext.api # External adapters (API clients)
-├── doc/                 # Documentation & diagrams
-├── AGENTS.md            # Agents guidelines
-├── .github/             # GitHub workflows
-└── pom.xml              # Parent POM
+│   ├── inbound/
+│   │   ├── rest/             # REST controllers, DTOs
+│   │   └── consumer/         # Message consumers (future)
+│   ├── outbound/
+│   │   ├── advice-slip-api/  # External API client for Advice Slip
+│   │   └── publisher/        # Message publishers (future)
+│   ├── application/          # Spring Boot initializer
+│   ├── architecture-tests/   # ArchUnit architecture tests
+│   ├── domain/               # Domain models & interfaces
+│   ├── repository/           # Database and infrastructure
+│   └── service/              # Business logic
+├── doc/                      # Documentation & diagrams
+├── AGENTS.md                 # Agents guidelines
+├── SECURITY.md               # Security policy
+├── .github/                  # GitHub workflows
+└── pom.xml                   # Parent POM
 ```
 
 ### General principles
@@ -38,7 +44,7 @@ multi-module-architecture/
 3. **Domain layer should be vendor-agnostic** - No Spring annotations in domain/
 4. **Use Lombok and MapStruct** - Already configured in POMs
 5. **main branch** - is off limits, when changing code always create a branch
-6. **Run tests before committing** - Use `mvn test`
+6. **Run tests before committing** - Use `./mvnw test`
 7. **Port/adapter pattern** - External APIs go in `app/outbound/`, interfaces in `app/domain/`
 8. **Port/adapter pattern** - Inbound APIs go in `app/inbound/`, no Interfaces, external parties should rely on 
      OpenAPI documentation, or negotiated message structures for async messaging
@@ -76,36 +82,37 @@ When you are tasked with a feature or bug fix, follow this exact sequence:
 ### Phase 2: Implementation & Testing
 1. **Branch from a clean main** Make sure you have all the latest from main branch, create new branch from here
 2. **Execute:** Modify files. Do not delete comments unless they are obsolete.
-3. **Local Validation:** - Build command: `mvn clean compile`
-  - Test command: `mvn test`
+3. **Local Validation:**
+   - Build command: `./mvnw clean compile`
+   - Test command: `./mvnw test`
 4. **Self-Correction:** If tests fail, analyze the logs, fix the code, and re-run tests until green. **Do not ask for help until you have attempted 2 logical fixes.**
 
 ---
 ### ⚡ Quick Reference
 
-| Action | Command                                                                    |
-|--------|----------------------------------------------------------------------------|
-| Full build | `mvn clean package`                                                    |
-| Run app | `mvn spring-boot:run -pl app/application -Dspring-boot.run.profiles=local`|
-| Run tests | `mvn test`                                                              |
-| Build specific module | `mvn install -pl <module> -am`                              |
-| Check dependencies | `mvn dependency:tree`                                          |
-| Default port | 8080, but local is 8081                                              |
-| Swagger UI | http://localhost:8081/swagger-ui.html                                  |
+| Action | Command |
+|--------|---------|
+| Full build | `./mvnw clean package` |
+| Run app | `./mvnw spring-boot:run -pl app/application -Dspring-boot.run.profiles=local` |
+| Run tests | `./mvnw test` |
+| Build specific module | `./mvnw install -pl <module> -am` |
+| Check dependencies | `./mvnw dependency:tree` |
+| Default port | 8080, but local is 8081 |
+| Swagger UI | http://localhost:8081/swagger-ui.html |
 
 ### 🔧 Common Issues & Solutions
 
 **Problem:** "Unable to find main class"
 ```bash
 # Make sure to run from application module
-mvn spring-boot:run -pl app/application
+./mvnw spring-boot:run -pl app/application
 ```
 
 **Problem:** MapStruct/Lombok conflicts
 ```bash
 # Ensure annotation processor order is correct (already configured in pom.xml)
 # If issues persist, run:
-mvn clean compile
+./mvnw clean compile
 ```
 
 **Problem:** Port already in use
@@ -113,7 +120,7 @@ mvn clean compile
 # Kill process on port 8081
 lsof -ti:8081 | xargs kill -9
 # Or run on different port
-mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
+./mvnw spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
 ```
 
 
@@ -141,12 +148,6 @@ mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
 - Assertions: Prefer AssertJ fluent assertions (`assertThat(...)`).
 - Method naming: Use `@DisplayName("descriptive test name")` for clarity.
 
-### Changelog Release Notes
-- User-facing changes only; no internal/meta notes (version alignment, release process).
-- Changelog placement: in the active version block, append new entries to the end of the target section (`### Changes` or `### Fixes`).
-- Changelog attribution: use at most one contributor mention per line; prefer `Thanks @author`.
-- Pure test additions/fixes generally do **not** need a changelog entry unless they alter user-facing behavior.
-
 ---
 
 ## 4. Pull Request (PR) requirements
@@ -166,22 +167,8 @@ mvn spring-boot:run -Dspring-boot.run.arguments='--server.port=8082'
 
 ---
 
-## Changelog Release Notes
-
-- When cutting a release with beta GitHub prerelease:
-  - Tag `vYYYY.M.D-beta.N` from the release commit (example: `v2026.2.15-beta.1`).
-  - Create prerelease with title `mma YYYY.M.D-beta.N`.
-  - Use release notes from `CHANGELOG.md` version section (`Changes` + `Fixes`, no title duplicate).
-  - Attach at least `MMA-YYYY.M.D.zip` and `MMA-YYYY.M.D.dSYM.zip`.
-
-- Keep top version entries in `CHANGELOG.md` sorted by impact:
-  - `### Changes` first.
-  - `### Fixes` deduped and ranked with user-facing fixes first.
-
-
-
 ## 5. Constraints & Boundaries
 - **Dependencies:** Do not add new external libraries without explicit user approval.
 - **Secrets:** Never commit `.env` files or API keys.
-- The project uses **reactive programming** (Reactor) style, keep that
+- The project uses **reactive programming** (Reactor) style, keep that style.
 - **NO-GO zone** External Advice Slip API (https://api.adviceslip.com/) is off limits, auto generation of classes are part of build
