@@ -21,10 +21,10 @@ git clone https://github.com/jnie/multi-module-architecture.git
 cd multi-module-architecture
 
 # Build the project
-mvn clean install
+./mvnw clean install
 
 # Run the application
-mvn spring-boot:run -pl app/application
+./mvnw spring-boot:run -pl app/application -Dspring-boot.run.profiles=local
 ```
 
 ## Technology Stack
@@ -42,9 +42,9 @@ mvn spring-boot:run -pl app/application
 
 ## 🎯 Purpose
 
-- Demonstrate that multi-module architecture is **framework-agnostic**
-- Showcase Micronaut's advantages: **faster startup**, **lower memory usage**
-- Provide a **reference implementation** for Spring Boot → Micronaut migrations
+- Demonstrate that multi-module architecture enables **framework-agnostic domain design**
+- Showcase **separation of concerns** with strict module boundaries for lower cognitive load
+- Provide a **reference implementation** for Clean Architecture and Hexagonal Architecture patterns
 
 ## 📦 Architecture
 
@@ -52,30 +52,33 @@ The project follows a **Clean Architecture** approach with clear separation of c
 
 ```
 app/
-├── inbound/rest/          # REST controllers, DTOs, mappers
-├── application/           # Main class, configuration, beans
-├── domain/                # Domain models, interfaces (business logic contracts)
-├── service/               # Business logic implementation and Orchestration layer
-└── outbound/              # External adapters (HTTP clients, repositories)
-    └── advice-slip-api/   # Integration with Advice Slip API
+├── inbound/
+│   └── rest/                # REST controllers, DTOs, mappers
+├── application/             # Main class, configuration, beans
+├── architecture-tests/      # ArchUnit architecture validation
+├── domain/                  # Domain models, interfaces (business logic contracts)
+├── service/                 # Business logic implementation and Orchestration layer
+└── outbound/
+    └── advice-slip-api/     # Integration with Advice Slip API
 ```
 
 ### Module Responsibilities
 
-| Module | Description                                                                     |
-|--------|---------------------------------------------------------------------------------|
-| **inbound/rest** | REST controllers, DTOs, exception handling                                      |
-| **application** | Entry point (Application.main), configuration, dependency wiring                |
+| Module | Description |
+|--------|-------------|
+| **inbound/rest** | REST controllers, DTOs, exception handling |
+| **application** | Entry point (Application.main), configuration, dependency wiring |
+| **architecture-tests** | ArchUnit tests validating architectural boundaries |
 | **domain** | Business models, interfaces (contracts) for services, no framework dependencies |
-| **service** | Orchestration and business logic, implements domain services                    |
-| **outbound/advice-slip-api** | External API integration (HTTP client)                                          |
+| **service** | Orchestration and business logic, implements domain services |
+| **outbound/advice-slip-api** | External API integration (HTTP client) |
 
 ## Constraints for module dependencies
 - inbound/rest cannot depend on any other module than Domain
 - application depends on all modules to wire the full application
 - domain cannot depend on any other module
 - service cannot depend on any other module than Domain
-- outboudn/*api* cannot depend on any other module than Domain
+- outbound/*api* cannot depend on any other module than Domain
 
 ## Object mapping for modules
 - domain module is responsible for the domain objects and aggregates
@@ -96,10 +99,10 @@ app/
 
 ```bash
 # Build all modules
-mvn clean package
+./mvnw clean package
 
 # Run the application
-mvn spring-boot:run -pl app/application -Dspring-boot.run.profiles=local
+./mvnw spring-boot:run -pl app/application -Dspring-boot.run.profiles=local
 ```
 
 ### Accessing the Application
