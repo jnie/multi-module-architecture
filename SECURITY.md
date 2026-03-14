@@ -48,6 +48,6 @@ When working with this codebase:
 This project uses:
 - **Spring Boot 3.x** - Active security updates
 - **H2 Database** - In-memory only, no persistent data exposure
-- **Java 17+** - Modern runtime with security patches
+- **Java 21+** - Modern runtime with security patches
 
 Security patches are applied through regular dependency updates.
