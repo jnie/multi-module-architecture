@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Exclude generated code -->
+    <Match>
+        <Class name="~.*\.Generated.*"/>
+    </Match>
+    
+    <!-- Exclude test classes -->
+    <Match>
+        <Class name="~.*\.Test.*"/>
+    </Match>
+    
+    <!-- Exclude ArchTest classes -->
+    <Match>
+        <Class name="~.*ArchTest.*"/>
+    </Match>
+    
+    <!-- Exclude module-info classes -->
+    <Match>
+        <Class name="module-info"/>
+    </Match>
+    
+    <!-- Exclude Spring Boot auto-configuration -->
+    <Match>
+        <Package name="~org\.springframework\.boot.*"/>
+    </Match>
+    
+    <!-- Exclude MapStruct generated mappers -->
+    <Match>
+        <Class name="~.*(?:MapperImpl|Impl)"/>
+    </Match>
+    
+    <!-- Exclude immutable value classes -->
+    <Match>
+        <Class name="~.*\.Immutable.*"/>
+    </Match>
+    
+    <!-- Exclude specific known issues with low severity -->
+    <Match>
+        <Bug pattern="UWU_UNSYNCHRONIZED_MONITOR"/>
+    </Match>
+    
+    <!-- Exclude null check warnings for Optional -->
+    <Match>
+        <Bug pattern="NP_NULL_ON_SOME_PATH"/>
+    </Match>
+    
+    <!-- Exclude RCN (redundant null check) warnings -->
+    <Match>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+</FindBugsFilter>
