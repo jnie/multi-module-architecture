@@ -16,7 +16,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -27,8 +26,10 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B verify --file pom.xml
+
+    # Build and run tests with code coverage
+    - name: Build with Maven (verify phase includes tests)
+      run: mvn -B verify -Pcoverage --file pom.xml
 
     # Upload test reports
     - name: Upload test results
@@ -38,6 +39,36 @@ jobs:
         name: test-results
         path: '**/target/surefire-reports/*.xml'
 
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-#    - name: Update dependency graph
-#      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    # Upload JaCoCo coverage report
+    - name: Upload JaCoCo coverage report
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: jacoco-report
+        path: '**/target/site/jacoco/*.xml'
+
+    # Upload SpotBugs results
+    - name: Upload SpotBugs results
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: spotbugs-report
+        path: '**/target/spotbugs/*.xml'
+
+  sonarcloud:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - uses: actions/checkout@v6
+    - name: Set up JDK 21
+      uses: actions/setup-java@v5
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+    - name: Analyze with SonarCloud
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: mvn -B sonar -Dsonar.organization=jnie -Dsonar.projectKey=jnie_multi-module-architecture -Pcoverage --file pom.xml

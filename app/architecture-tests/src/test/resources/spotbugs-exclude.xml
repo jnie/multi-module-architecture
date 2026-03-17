@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- Exclude all test classes -->
+    <Match>
+        <Package name="~.*\.architecture\.tests.*" />
+    </Match>
+    <Match>
+        <Class name="~.*Test" />
+    </Match>
+    <Match>
+        <Class name="~.*Tests" />
+    </Match>
+</FindBugsFilter>
