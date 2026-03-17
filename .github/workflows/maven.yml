@@ -58,7 +58,7 @@ jobs:
   sonarcloud:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && secrets.SONAR_TOKEN != ''
+    if: github.event_name == 'pull_request'
     steps:
     - uses: actions/checkout@v6
     - name: Set up JDK 21
