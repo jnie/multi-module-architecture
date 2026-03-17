@@ -27,20 +27,15 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B verify --file pom.xml
-
-    # JaCoCo code coverage
-    - name: Generate JaCoCo coverage report
-      if: always()
-      run: mvn jacoco:report -f pom.xml
+    - name: Build with Maven (verify phase includes tests)
+      run: mvn -B verify -Pcoverage --file pom.xml
 
     - name: Upload JaCoCo coverage report
       if: always()
       uses: actions/upload-artifact@v7
       with:
         name: jacoco-report
-        path: '**/target/site/jacoco/**'
+        path: '**/target/site/jacoco/*.xml'
 
     # SpotBugs static analysis
     - name: Run SpotBugs
