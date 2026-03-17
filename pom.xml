@@ -239,8 +239,6 @@
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
-                    <!-- Exclude ArchUnit tests from SpotBugs -->
-                    <excludeFilterFile>${project.basedir}/src/test/resources/spotbugs-exclude.xml</excludeFilterFile>
                     <failOnError>false</failOnError>
                 </configuration>
                 <executions>
@@ -253,21 +251,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- Profiles for different CI/CD scenarios -->
-    <profiles>
-        <!-- Coverage profile - activates JaCoCo and disables SpotBugs for faster builds -->
-        <profile>
-            <id>coverage</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
