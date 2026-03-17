@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Code coverage enabled with JaCoCo - Static analysis with SpotBugs -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -39,9 +38,7 @@
     <properties>
         <java.version>21</java.version>
         <org.openapitools.version>7.20.0</org.openapitools.version>
-        <archunit.version>1.4.1</archunit.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <spotbugs.version>4.8.6</spotbugs.version>
+        <archunit.version>1.3.0</archunit.version>
     </properties>
     <dependencies>
         <dependency>
@@ -82,7 +79,7 @@
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>2.2.45</version>
+                <version>2.2.44</version>
             </dependency>
 
             <!-- Springdoc OpenAPI and Swagger UI -->
@@ -124,17 +121,23 @@
                     <!-- RELEASE_VERSION -->
                     <version>${org.openapitools.version}</version>
                 </plugin>
-                <!-- JaCoCo Code Coverage -->
+                <!-- JaCoCo for Code Coverage -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco.version}</version>
+                    <version>0.8.12</version>
                 </plugin>
-                <!-- SpotBugs Static Analysis -->
+                <!-- SpotBugs for Static Analysis -->
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>${spotbugs.version}</version>
+                    <version>4.8.6.4</version>
+                </plugin>
+                <!-- SonarQube/Cloud Scanner -->
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>5.0.0.4381</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -159,32 +162,6 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.asciidoctor</groupId>
-                <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-docs</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>process-asciidoc</goal>
-                        </goals>
-                        <configuration>
-                            <backend>html</backend>
-                            <doctype>book</doctype>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.springframework.restdocs</groupId>
-                        <artifactId>spring-restdocs-asciidoctor</artifactId>
-                        <version>${spring-restdocs.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <!-- JaCoCo Code Coverage Plugin -->
@@ -218,12 +195,12 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.0</minimum>
+                                            <minimum>0.00</minimum>
                                         </limit>
                                         <limit>
                                             <counter>BRANCH</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.0</minimum>
+                                            <minimum>0.00</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -233,13 +210,15 @@
                 </executions>
             </plugin>
 
-            <!-- SpotBugs Static Analysis Plugin -->
+            <!-- SpotBugs Static Analysis -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
+                    <!-- Exclude ArchUnit tests from SpotBugs -->
+                    <excludeFilterFile>${project.basedir}/src/test/resources/spotbugs-exclude.xml</excludeFilterFile>
                     <failOnError>false</failOnError>
                 </configuration>
                 <executions>
@@ -250,7 +229,49 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>html</backend>
+                            <doctype>book</doctype>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.springframework.restdocs</groupId>
+                        <artifactId>spring-restdocs-asciidoctor</artifactId>
+                        <version>${spring-restdocs.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
+
+    <!-- Profiles for different CI/CD scenarios -->
+    <profiles>
+        <!-- Coverage profile - activates JaCoCo and disables SpotBugs for faster builds -->
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
