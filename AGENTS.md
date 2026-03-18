@@ -48,6 +48,7 @@ multi-module-architecture/
 7. **Port/adapter pattern** - External APIs go in `app/outbound/`, interfaces in `app/domain/`
 8. **Port/adapter pattern** - Inbound APIs go in `app/inbound/`, no Interfaces, external parties should rely on 
      OpenAPI documentation, or negotiated message structures for async messaging
+9. **Dependency versions** - keep versions in properties, to make it easily accessible
 
 ### Type safety & Code quality
 
