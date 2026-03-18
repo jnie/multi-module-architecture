@@ -1,6 +1,5 @@
 package dk.jnie.example.advice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dk.jnie.example.advice.mappers.AdviceObjectMapper;
 import dk.jnie.example.advice.mappers.AdviceObjectMapperImpl;
 import dk.jnie.example.advice.model.AdviceResponse;
@@ -17,12 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AdviceObjectMapperTest {
 
     private AdviceObjectMapper mapper;
-    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
         mapper = new AdviceObjectMapperImpl();
-        objectMapper = new ObjectMapper();
     }
 
     @Test
