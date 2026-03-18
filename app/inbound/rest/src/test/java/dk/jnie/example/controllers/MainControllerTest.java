@@ -50,9 +50,6 @@ class MainControllerTest {
     @Test
     @DisplayName("POST /api/v1/advice returns successful response")
     void getAdvice_ReturnsSuccessfulResponse() {
-        // Arrange
-        RequestDto requestDto = new RequestDto("anything");
-
         ResponseDto responseDto = new ResponseDto("Don't be afraid to ask questions.");
 
         DomainResponse domainResponse = DomainResponse.builder()
@@ -81,9 +78,6 @@ class MainControllerTest {
     @Test
     @DisplayName("POST /api/v1/advice handles empty request")
     void getAdvice_HandlesEmptyRequest() {
-        // Arrange
-        RequestDto requestDto = new RequestDto(null);
-
         ResponseDto responseDto = new ResponseDto("Default advice");
 
         DomainResponse domainResponse = DomainResponse.builder()
