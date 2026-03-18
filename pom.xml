@@ -37,10 +37,27 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <org.openapitools.version>7.20.0</org.openapitools.version>
+        <!-- Framework versions -->
+        <spring-cloud.version>2025.1.1</spring-cloud.version>
+        
+        <!-- Library versions -->
+        <immutables.version>2.12.1</immutables.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <swagger-annotations.version>2.2.45</swagger-annotations.version>
+        <springdoc-openapi.version>3.0.2</springdoc-openapi.version>
+        
+        <!-- Code generation tools -->
+        <openapi-generator.version>7.20.0</openapi-generator.version>
+        <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
+        
+        <!-- Testing & Analysis tools -->
         <archunit.version>1.4.1</archunit.version>
         <jacoco.version>0.8.12</jacoco.version>
         <spotbugs.version>4.8.6.4</spotbugs.version>
+        
+        <!-- Documentation -->
+        <asciidoctor.version>3.2.0</asciidoctor.version>
+        <spring-restdocs.version>3.0.5</spring-restdocs.version>
     </properties>
     <dependencies>
         <dependency>
@@ -64,7 +81,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>2025.1.1</version>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -73,7 +90,7 @@
             <dependency>
                 <groupId>org.immutables</groupId>
                 <artifactId>value</artifactId>
-                <version>2.12.1</version>
+                <version>${immutables.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -81,26 +98,26 @@
             <dependency>
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>2.2.45</version>
+                <version>${swagger-annotations.version}</version>
             </dependency>
 
             <!-- Springdoc OpenAPI and Swagger UI -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-                <version>3.0.2</version>
+                <version>${springdoc-openapi.version}</version>
             </dependency>
 
             <!-- MapStruct -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
-                <version>1.6.3</version>
+                <version>${mapstruct.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
-                <version>1.6.3</version>
+                <version>${mapstruct.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -120,8 +137,12 @@
                 <plugin>
                     <groupId>org.openapitools</groupId>
                     <artifactId>openapi-generator-maven-plugin</artifactId>
-                    <!-- RELEASE_VERSION -->
-                    <version>${org.openapitools.version}</version>
+                    <version>${openapi-generator.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin.version}</version>
                 </plugin>
                 <!-- JaCoCo for Code Coverage -->
                 <plugin>
@@ -151,10 +172,12 @@
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
                         </path>
                         <path>
                             <groupId>org.immutables</groupId>
                             <artifactId>value</artifactId>
+                            <version>${immutables.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -163,7 +186,7 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${asciidoctor.version}</version>
                 <executions>
                     <execution>
                         <id>generate-docs</id>
