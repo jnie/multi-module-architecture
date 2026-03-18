@@ -51,11 +51,9 @@ class MainControllerTest {
     @DisplayName("POST /api/v1/advice returns successful response")
     void getAdvice_ReturnsSuccessfulResponse() {
         // Arrange
-        RequestDto requestDto = new RequestDto();
-        requestDto.setPlease("anything");
+        RequestDto requestDto = new RequestDto("anything");
 
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setAdvice("Don't be afraid to ask questions.");
+        ResponseDto responseDto = new ResponseDto("Don't be afraid to ask questions.");
 
         DomainResponse domainResponse = DomainResponse.builder()
                 .answer("Don't be afraid to ask questions.")
@@ -75,7 +73,7 @@ class MainControllerTest {
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody(ResponseDto.class)
-                .value(response -> assertThat(response.getAdvice()).isEqualTo("Don't be afraid to ask questions."));
+                .value(response -> assertThat(response.advice()).isEqualTo("Don't be afraid to ask questions."));
 
         verify(ourServiceMock).getAnAdvice(any());
     }
@@ -84,11 +82,9 @@ class MainControllerTest {
     @DisplayName("POST /api/v1/advice handles empty request")
     void getAdvice_HandlesEmptyRequest() {
         // Arrange
-        RequestDto requestDto = new RequestDto();
-        requestDto.setPlease(null);
+        RequestDto requestDto = new RequestDto(null);
 
-        ResponseDto responseDto = new ResponseDto();
-        responseDto.setAdvice("Default advice");
+        ResponseDto responseDto = new ResponseDto("Default advice");
 
         DomainResponse domainResponse = DomainResponse.builder()
                 .answer("Default advice")

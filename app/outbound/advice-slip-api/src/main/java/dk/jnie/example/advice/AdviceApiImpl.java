@@ -6,7 +6,8 @@ import dk.jnie.example.advice.model.AdviceResponse;
 import dk.jnie.example.domain.model.MultiAggregate;
 import dk.jnie.example.domain.outbound.AdviceApi;
 import dk.jnie.example.domain.repository.CacheRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -16,9 +17,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
-@Slf4j
 @Service
 public class AdviceApiImpl implements AdviceApi {
+    private static final Logger log = LoggerFactory.getLogger(AdviceApiImpl.class);
 
     private static final String CACHE_KEY = "advice:random";
 

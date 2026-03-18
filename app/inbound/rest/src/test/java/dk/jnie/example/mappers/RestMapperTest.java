@@ -33,8 +33,7 @@ class RestMapperTest {
     @DisplayName("requestDTOToDomain maps please to question")
     void requestDTOToDomain_MapsPleaseToQuestion() {
         // Arrange
-        RequestDto requestDto = new RequestDto();
-        requestDto.setPlease("Give me advice");
+        RequestDto requestDto = new RequestDto("Give me advice");
 
         // Act
         DomainRequest result = restMapper.requestDTOToDomain(requestDto);
@@ -67,7 +66,7 @@ class RestMapperTest {
 
         // Assert
         assertThat(result).isNotNull();
-        assertThat(result.getAdvice()).isEqualTo("Don't worry, be happy!");
+        assertThat(result.advice()).isEqualTo("Don't worry, be happy!");
     }
 
     @Test

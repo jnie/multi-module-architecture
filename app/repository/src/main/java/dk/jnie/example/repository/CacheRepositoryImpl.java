@@ -1,7 +1,8 @@
 package dk.jnie.example.repository;
 
 import dk.jnie.example.domain.repository.CacheRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +16,8 @@ import io.r2dbc.spi.ConnectionFactory;
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@Slf4j
 public class CacheRepositoryImpl implements CacheRepository {
+    private static final Logger log = LoggerFactory.getLogger(CacheRepositoryImpl.class);
 
     private final DatabaseClient databaseClient;
     private final AtomicBoolean schemaInitialized = new AtomicBoolean(false);
