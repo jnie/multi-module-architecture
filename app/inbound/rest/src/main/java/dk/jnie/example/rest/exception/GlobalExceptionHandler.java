@@ -1,8 +1,5 @@
 package dk.jnie.example.rest.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -75,22 +72,16 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Data class for error responses.
+     * Record for error responses.
      */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class ErrorResponse {
-        private int status;
-        private String error;
-        private String message;
-        private Instant timestamp;
-
+    public record ErrorResponse(
+            int status,
+            String error,
+            String message,
+            Instant timestamp
+    ) {
         public ErrorResponse(int status, String error, String message) {
-            this.status = status;
-            this.error = error;
-            this.message = message;
-            this.timestamp = Instant.now();
+            this(status, error, message, Instant.now());
         }
     }
 }

@@ -1,10 +1,7 @@
 package dk.jnie.example.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
-@Data
-public class ResponseDto {
-    @JsonProperty("advice")
-    String advice;
-}
+public record ResponseDto(
+    @JsonProperty("advice") String advice
+) {}
