@@ -1,9 +1,9 @@
 package dk.jnie.example.rest.controllers;
 
+import dk.jnie.example.domain.services.OurService;
 import dk.jnie.example.rest.mappers.RestMapper;
 import dk.jnie.example.rest.model.RequestDto;
 import dk.jnie.example.rest.model.ResponseDto;
-import dk.jnie.example.domain.services.OurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -57,8 +57,11 @@ public class MainController {
                     )
             )
             RequestDto request) {
+        log.info("Request received question is: {}", request.please());
+
         return ourService.getAnAdvice(restMapper.requestDTOToDomain(request))
-                .map(restMapper::domainToResponseDto);
+               .map(restMapper::domainToResponseDto)
+                .doOnNext(response -> log.info("Response is: {}", response.advice()));
     }
 
 
