@@ -165,6 +165,7 @@ lsof -ti:8081 | xargs kill -9
 - **PR review conversations** if a bot leaves review conversations on your PR, address them and resolve those conversations yourself once fixed. Leave a conversation unresolved only when reviewer or maintainer judgment is still needed; do not leave bot-conversation cleanup to maintainers.
 - **Security advisory analysis** before triage/severity decisions, read `SECURITY.md` to align with agreed trust model and design boundaries.
 - **Risk Assessment:** Label as [Low/Medium/High] risk.
+- **Update CHANGELOG:** always add to the CHNAGELOG.md file if major things are changed
 
 ---
 
