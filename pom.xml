@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.3</version>
+        <version>4.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>dk.jnie.example</groupId>
@@ -47,13 +47,13 @@
         <springdoc-openapi.version>3.0.2</springdoc-openapi.version>
         
         <!-- Code generation tools -->
-        <openapi-generator.version>7.20.0</openapi-generator.version>
+        <openapi-generator.version>7.21.0</openapi-generator.version>
         <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
         
         <!-- Testing & Analysis tools -->
         <archunit.version>1.4.1</archunit.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <spotbugs.version>4.8.6.4</spotbugs.version>
+        <jacoco.version>0.8.14</jacoco.version>
+        <spotbugs.version>4.9.8.3</spotbugs.version>
         
         <!-- Documentation -->
         <asciidoctor.version>3.2.0</asciidoctor.version>
