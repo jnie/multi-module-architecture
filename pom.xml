@@ -43,8 +43,8 @@
         <!-- Library versions -->
         <immutables.version>2.12.1</immutables.version>
         <mapstruct.version>1.6.3</mapstruct.version>
-        <swagger-annotations.version>2.2.45</swagger-annotations.version>
-        <springdoc-openapi.version>3.0.2</springdoc-openapi.version>
+        <swagger-annotations.version>2.2.47</swagger-annotations.version>
+        <springdoc-openapi.version>3.0.3</springdoc-openapi.version>
         
         <!-- Code generation tools -->
         <openapi-generator.version>7.21.0</openapi-generator.version>
